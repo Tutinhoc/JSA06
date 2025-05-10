@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Đăng Ký</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .form-group input:focus {
+            border-color: #4a90e2;
+            outline: none;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #357abd;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <h2>Đăng Ký</h2>
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="fullname">Full name</label>
+                <input type="text" id="fullname" name="fullname" required />
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required />
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required />
+            </div>
+            <button id="submit" type="submit" class="submit-btn">Gửi</button>
+        </form>
+        <a href="login.html">you had an account?</a>
+    </div>
+</body>
+
+</html>
+<script>
+let form = document.getElementById("registerForm");
+console.log(form);
+//addEventListener => Lang nghe su kien cua form do
+//Cu the la lang nghe khi button submit duoc click
+form.addEventListener("submit", (event) => {
+   // khi click button submit thi ham preventDefault() ngan khong
+   // cho form chuyen trang
+    event.preventDefault();
+    //
+    let username = form.fullname.value.trim();
+    let email = form.email.value.trim();
+    let password = form.password.value.trim();
+    let user = {
+        fullname: fullname,
+        email: email,
+        password: password
+    }
+    // khong ser key
+    // chuyen user => string
+    let  userString = JSON.stringify(user);
+    localStorage.setItem("user", userString);
+    window.location.href = "Login.html";
+})
+</script>

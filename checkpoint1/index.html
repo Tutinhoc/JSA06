@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Game Lật Thẻ</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    #score {
+      font-size: 24px;
+      margin: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 100px);
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .grid img {
+      width: 100px;
+      height: 100px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Game Lật Thẻ (Memory Game)</h1>
+  <div id="score">Score: 0</div>
+  <div class="grid" id="board"></div>
+
+  <script>
+    const cards = [
+      { name: 'heo', img: 'img/heo.jpg' },
+      { name: 'heo', img: 'img/heo.jpg' },
+      { name: 'bo', img: 'img/bo.jpg' },
+      { name: 'bo', img: 'img/bo.jpg' },
+      { name: 'sutu', img: 'img/sutu.jpg' },
+      { name: 'sutu', img: 'img/sutu.jpg' },
+      { name: 'meo', img: 'img/meo.jpg' },
+      { name: 'meo', img: 'img/meo.jpg' }
+    ];
+
+    cards.sort(() => 0.5 - Math.random());
+
+    const board = document.getElementById('board');
+    const score = document.getElementById('score');
+    let pick = [];
+    let pickId = [];
+    let matched = [];
+
+    function init() {
+      for (let i = 0; i < cards.length; i++) {
+        const img = document.createElement('img');
+        img.setAttribute('src', 'img/chamhoi.jpg');
+        img.setAttribute('data-id', i);
+        img.addEventListener('click', flip);
+        board.appendChild(img);
+      }
+    }
+
+    function flip() {
+      const id = this.getAttribute('data-id');
+      if (pickId.includes(id) || pick.length === 2) return;
+
+      this.setAttribute('src', cards[id].img);
+      pick.push(cards[id].name);
+      pickId.push(id);
+
+      if (pick.length === 2) {
+        setTimeout(check, 800);
+      }
+    }
+
+    function check() {
+      const imgs = document.querySelectorAll('img');
+      const [id1, id2] = pickId;
+
+      if (pick[0] === pick[1]) {
+        imgs[id1].setAttribute('src', 'img/check.jpg');
+        imgs[id2].setAttribute('src', 'img/check.jpg');
+        imgs[id1].removeEventListener('click', flip);
+        imgs[id2].removeEventListener('click', flip);
+        matched.push(pick);
+      } else {
+        imgs[id1].setAttribute('src', 'img/chamhoi.jpg');
+        imgs[id2].setAttribute('src', 'img/chamhoi.jpg');
+      }
+
+      pick = [];
+      pickId = [];
+      score.textContent = `Score: ${matched.length}`;
+
+      if (matched.length === cards.length / 2) {
+        score.textContent = '🎉 Chúc mừng! Bạn đã thắng! 🎉';
+      }
+    }
+
+    init();
+  </script>
+
+</body>
+</html>

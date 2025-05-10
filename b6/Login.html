@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Đăng Ký</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .form-group input:focus {
+            border-color: #4a90e2;
+            outline: none;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #357abd;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <h2>Đăng Nhập</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required />
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required />
+            </div>
+            <button id="submit" type="submit" class="submit-btn">Gửi</button>
+        </form>
+        <a href="Register.html">Register now?</a>
+    </div>
+</body>
+
+</html>
+<script>
+// dau tien phai lay ra form
+let loginForm = document.getElementById("loginForm");
+loginForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    let loginEmail = loginForm.email.value.trim();
+    let loginPassword = loginForm.password.value.trim();
+    console.log(email, password);
+
+    let userFormLocalStorage = localStorage.getItem("user");
+    let userRegister = JSON.parse(userFormLocalStorage);
+    console.log(userRegister);
+
+    if(userRegister.email === loginEmail && userRegister.password === loginPassword) {
+
+        window.location.href = "index.html";
+        checkLogin = true;
+        localStorage.setItem("checkLogin")
+
+    } else {
+        checklogin = false;
+        localStorage.setItem("checkLogin", false);
+        console.log(checklogin);
+        alert("Sai email hoac password, vui long thu lai");
+    }
+})
+</script>
